@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {{ partial "head.html" . }}
+</head>
+<body>
+  {{ partial "nav.html" . }}
+  <div id="post">
+    <div id="pjax">
+      <article id="post__content">
+        <h1 id="post__title" data-identifier="{{ page.date | date: "%Y%m%d" }}">{{ page.title }}</h1>
+        {{ content }}
+      </article> <!-- end #post__content -->
+    </div> <!-- end #pjax -->
+
+    <div id="post__toc-trigger">
+      <div id="post__toc">
+        <span id="post__toc-title">Table of Contents</span>
+        <ul id="post__toc-ul"></ul>
+      </div>
+    </div>
+  </div> <!-- end #post -->
+  {{ partial "highlightjs.html" . }}
+  {{ partial "googleanalytics.html" . }}
+</body>
+</html>

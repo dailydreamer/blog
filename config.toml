@@ -1,7 +1,8 @@
-title = "dailydreamer's blog"
-baseURL = "https://dailydreamer.me/"
+title = "dailydreamer"
+baseURL = "https://dailydreamer.me"
 languageCode = "zh-cn"
 
 [Params]
-  Author = "Shekhar Gulati"
+  author = "dailydreamer"
+  description = "dailydreamer的小空间"
   disqusShortname = "dailydreamer"
