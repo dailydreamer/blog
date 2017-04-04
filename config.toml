@@ -1,0 +1,7 @@
+title = "dailydreamer's blog"
+baseURL = "https://dailydreamer.me/"
+languageCode = "zh-cn"
+
+[Params]
+  Author = "Shekhar Gulati"
+  disqusShortname = "dailydreamer"
