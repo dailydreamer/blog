@@ -1,8 +1,12 @@
-title = "dailydreamer"
 baseURL = "https://dailydreamer.me"
+title = "dailydreamer"
+author = "dailydreamer"
 languageCode = "zh-cn"
+disqusShortname = "dailydreamer"
+googleAnalytics = "UA-75912368-1"
 
-[Params]
-  author = "dailydreamer"
+[params]
   description = "dailydreamer的小空间"
-  disqusShortname = "dailydreamer"
+  github = "https://github.com/dailydreamer"
+  avatar = "avatar.jpg"
+  
