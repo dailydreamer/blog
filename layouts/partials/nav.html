@@ -4,8 +4,14 @@
 
     <ul id="tags__ul">
       <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
-      {{ range $category := .Site.Taxonomies.categories }}
+      {{ range $category, $posts := .Site.Taxonomies.categories }}
         <li id="{{ $category }}" class="tags__li tags-btn">{{ $category }}</li>
+      {{ end }}
+    </ul>
+
+    <ul>
+      {{ range $tag, $posts := .Site.Taxonomies.tags }}
+        <li id="{{ $tag }}" class="tags__li tags-btn">{{ $tag }}</li>
       {{ end }}
     </ul>
 
@@ -20,7 +26,7 @@
     {{ range .Data.Pages }}
       <li>
       <a href="{{ .Permalink }}">{{ .Title }}</a>
-      <div class="meta">{{ .Date.Format "Mon, Jan 2, 2006" }}</div>
+      <div class="meta">{{ .Date.Format "Jan 2, 2006" }}</div>
       </li>
     {{ end }}
     </nav>
