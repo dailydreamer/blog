@@ -114,7 +114,7 @@ JWT存储有两种方式，localStorage和cookie。
 
 后端返回JWT后，前端存储在localStorage中，每次请求时设置HTTP Authorization Header，使用Bearer scheme，如下：
 
-```
+```http
 HTTP/1.1
 
 GET /api/user
@@ -130,7 +130,7 @@ Authorization: Bearer Header.Payload.Signature
 
 后端response的header设置Set-Cookie，如下
 
-```
+```http
 HTTP/1.1 200 OK
 
 Set-Cookie: token=Header.Payload.Signature Secure; HttpOnly;
