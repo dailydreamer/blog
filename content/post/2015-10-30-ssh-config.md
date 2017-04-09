@@ -1,8 +1,7 @@
 +++
 date = "2015-10-30T20:00:00+08:00"
 title = "多个github账号的ssh key切换"
-categories = ["技术随笔"]
-tags = ["程序员", "ssh"]
+tags = ["编程", "ssh"]
 +++
 
 当拥有多个github账号并且想通过ssh方式同步代码时，就需要在多个账号的ssh key间切换。

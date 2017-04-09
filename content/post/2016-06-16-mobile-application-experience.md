@@ -1,8 +1,7 @@
 +++
 date = "2016-06-16T20:00:00+08:00"
 title = "移动端体验"
-categories = ["读书笔记"]
-tags = ["产品经理"]
+tags = ["读书笔记", "产品经理"]
 +++
 
 前段时间在Edx上浏览了一门课程[Mobile Application Experiences](https://courses.edx.org/courses/course-v1:MITx+21W.789.1x+1T2016/info)，听课笔记记录如下。

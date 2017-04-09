@@ -1,19 +1,34 @@
-<aside id="sidebar">
+<aside class="column is-4">
+  <nav class="container is-fluid">
+    <div class="control has-icon">
+      <input class="input is-small" type="text" placeholder="Search">
+      <span class="icon is-small">
+        <i class="fa fa-search"></i>
+      </span>
+    </div>
+
+    <div id="tags__ul">
+      <a id="all_posts" class="tag is-primary">所有文章</a>
+      {{ range $tag, $posts := .Site.Taxonomies.tags }}
+        <a id="{{ $tag }}" class="tag">{{ $tag }}</a>
+      {{ end }}
+    </div>
+
+    <div class="menu">
+      <ul id="posts__ul" class="menu-list">
+        {{ range (where .Site.Pages "Type" "post") }}
+        {{ if ne .Title "Posts" }}
+        <li class="all_posts{{ range .Params.tags }} {{ . | lower }}{{ end }}">
+          <a href="{{ .Permalink }}">{{ .Title }} <span>{{ .Date.Format "Jan, 2006" }}</span></a>
+        </li>
+        {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </nav>
+
   <nav id="tags">
     <a href="/index.html" id="avatar" style="background-image:url({{ .Site.BaseURL }}/images/{{ .Site.Params.avatar }})"></a>
-
-    <ul id="tags__ul">
-      <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
-      {{ range $category, $posts := .Site.Taxonomies.categories }}
-        <li id="{{ $category }}" class="tags__li tags-btn">{{ $category }}</li>
-      {{ end }}
-    </ul>
-
-    <ul>
-      {{ range $tag, $posts := .Site.Taxonomies.tags }}
-        <li id="{{ $tag }}" class="tags__li tags-btn">{{ $tag }}</li>
-      {{ end }}
-    </ul>
 
     <div id="tags__bottom">
       <a href="{{ .RSSLink }}" type="application/rss+xml" id="icon-rss" class="tags-btn fontello"></a>
@@ -21,14 +36,4 @@
     </div>
   </nav>
 
-  <div id="posts-list">
-    <nav id="pl__container">
-    {{ range .Data.Pages }}
-      <li>
-      <a href="{{ .Permalink }}">{{ .Title }}</a>
-      <div class="meta">{{ .Date.Format "Jan 2, 2006" }}</div>
-      </li>
-    {{ end }}
-    </nav>
-  </div>
 </aside>

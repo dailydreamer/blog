@@ -1,8 +1,7 @@
 +++
 date = "2016-04-25T20:00:00+08:00"
 title = "DOM和DOM Event"
-categories = ["技术随笔"]
-tags = ["程序员", "WEB"]
+tags = ["编程", "WEB"]
 +++
 
 ## DOM和HTML，JavaScript，CSS的关系

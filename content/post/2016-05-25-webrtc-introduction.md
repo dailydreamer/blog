@@ -1,8 +1,7 @@
 +++
-date = "2016-05-24T20:00:00+08:00"
+date = "2016-05-25T20:00:00+08:00"
 title = "WebRTC简介"
-categories = ["技术随笔"]
-tags = ["程序员", "WEB"]
+tags = ["编程", "WEB"]
 +++
 
 ## [WebRTC](http://www.html5rocks.com/en/tutorials/webrtc/basics/)简介

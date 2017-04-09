@@ -1,8 +1,7 @@
 +++
 date = "2015-06-23T20:00:00+08:00"
 title = "python解析XML与生成迭代器"
-categories = ["技术随笔"]
-tags = ["程序员", "python"]
+tags = ["编程", "编程语言"]
 +++
 
 这次来看看python解析XML与生成迭代器。

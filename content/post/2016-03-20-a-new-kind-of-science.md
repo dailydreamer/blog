@@ -1,8 +1,7 @@
 +++
 date = "2016-03-20T20:00:00+08:00"
 title = "一种新科学"
-categories = ["读书笔记"]
-tags = ["科学"]
+tags = ["读书笔记", "科学"]
 +++
 
 本书作者是Mathematica之父Stephen Wolfram。
