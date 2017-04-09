@@ -8,5 +8,5 @@ googleAnalytics = "UA-75912368-1"
 [params]
   description = "dailydreamer的小空间"
   github = "https://github.com/dailydreamer"
-  avatar = "avatar.jpg"
+  favicon = "avatar.jpg"
   

@@ -2,6 +2,7 @@
 date = "2015-06-05T20:00:00+08:00"
 title = "ElasticSearch搜索配置（1）"
 tags = ["编程", "ElasticSearch"]
+keywords = ["ElasticSearch", "搜索"]
 +++
 
 最近在用ElasticSearch做一些搜索，来谈谈其中用到的一些特性。

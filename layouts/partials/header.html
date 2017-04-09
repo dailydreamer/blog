@@ -7,6 +7,10 @@
 {{ with .Site.Params.description }}
 <meta name="description" content="{{ . }}">
 {{ end }}
+{{ with .Site.Params.favicon }}
+<link rel="shortcut icon" href="/images/{{ . }}" />
+{{ end }}
+<meta name="keywords" content="{{ delimit .Keywords ", " }}">
 <title>{{ .Title }}</title>
 
 <link href="/index.xml" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" />

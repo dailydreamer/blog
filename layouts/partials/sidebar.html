@@ -17,7 +17,7 @@
       <ul id="posts__ul" class="menu-list">
         {{ range (where .Site.Pages "Type" "post") }}
         {{ if ne .Title "Posts" }}
-        <li class="all_posts{{ range .Params.tags }} {{ . | lower }}{{ end }}">
+        <li class="all_posts {{ (delimit .Params.tags " ") | lower }}">
           <a href="{{ .Permalink }}">
             <span class="posts-title">{{ .Title }}</span>
             <span class="posts-date">{{ .Date.Format "Jan, 2006" }}</span>
