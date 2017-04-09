@@ -10,3 +10,8 @@ var tagsSwitcherHandler = function(tag) {
 $('#tags__ul > a').each(function(index) {
   $('#' + $(this).attr('id')).on('click', tagsSwitcherHandler($(this).attr('id')));
 });
+
+var asideEle = $("aside");
+$('#toggle__menu').on('click', function() {
+  asideEle.hasClass('active') ? asideEle.removeClass('active') : asideEle.addClass('active');
+});

@@ -4,9 +4,10 @@
   {{ partial "header.html" . }}
 </head>
 <body>
-  <div class="columns">
-    {{ partial "nav.html" . }}
+  {{ partial "nav.html" . }}      
 
+  <div id="container">
+    {{ partial "sidebar.html" . }}
     <article class="content">
       <h1 data-identifier="{{ dateFormat "2006-01-02" .Date }}">{{ .Title }}</h1>
       {{ .Content }}
@@ -14,6 +15,7 @@
     </article>
   </div>
   
+  <link href="  https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
   <script src="/js/script.js"></script>
   {{ partial "highlightjs.html" . }}

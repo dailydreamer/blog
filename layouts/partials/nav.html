@@ -1,39 +1,23 @@
-<aside class="column is-4">
-  <nav class="container is-fluid">
-    <div class="control has-icon">
-      <input class="input is-small" type="text" placeholder="Search">
-      <span class="icon is-small">
-        <i class="fa fa-search"></i>
+<nav class="nav has-shadow">
+  <div class="nav-left">
+    <span id="toggle__menu" class="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </span>
+    <a class="nav-item">Dailydreamer's Space</a>
+  </div>
+
+  <div class="nav-center">
+    <a class="nav-item" href="{{ .Site.Params.github }}">
+      <span class="icon">
+        <i class="fa fa-github"></i>
       </span>
-    </div>
-
-    <div id="tags__ul">
-      <a id="all_posts" class="tag is-primary">所有文章</a>
-      {{ range $tag, $posts := .Site.Taxonomies.tags }}
-        <a id="{{ $tag }}" class="tag">{{ $tag }}</a>
-      {{ end }}
-    </div>
-
-    <div class="menu">
-      <ul id="posts__ul" class="menu-list">
-        {{ range (where .Site.Pages "Type" "post") }}
-        {{ if ne .Title "Posts" }}
-        <li class="all_posts{{ range .Params.tags }} {{ . | lower }}{{ end }}">
-          <a href="{{ .Permalink }}">{{ .Title }} <span>{{ .Date.Format "Jan, 2006" }}</span></a>
-        </li>
-        {{ end }}
-        {{ end }}
-      </ul>
-    </div>
-  </nav>
-
-  <nav id="tags">
-    <a href="/index.html" id="avatar" style="background-image:url({{ .Site.BaseURL }}/images/{{ .Site.Params.avatar }})"></a>
-
-    <div id="tags__bottom">
-      <a href="{{ .RSSLink }}" type="application/rss+xml" id="icon-rss" class="tags-btn fontello"></a>
-      <a href="{{ .Site.Params.github }}" id="icon-github-circled" class="tags-btn fontello"></a>
-    </div>
-  </nav>
-
-</aside>
+    </a>
+    <a class="nav-item" href="/index.xml" type="application/rss+xml">
+      <span class="icon">
+        <i class="fa fa-rss"></i>
+      </span>
+    </a>
+  </div>
+</nav>

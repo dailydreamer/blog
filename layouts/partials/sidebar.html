@@ -1,0 +1,31 @@
+<aside>
+  <nav>
+    <div id="tags__ul">
+      <a id="all_posts" class="tag is-primary">
+        全部 
+        <span class="tag-count">{{ sub (len (where .Site.Pages "Type" "post")) 1 }}</span>
+      </a>
+      {{ range .Site.Taxonomies.tags.ByCount }}
+      <a id="{{ .Term }}" class="tag">
+        {{ .Term }} 
+        <span class="tag-count">{{ .Count }}</span>
+      </a>
+      {{ end }}
+    </div>
+
+    <div class="menu">
+      <ul id="posts__ul" class="menu-list">
+        {{ range (where .Site.Pages "Type" "post") }}
+        {{ if ne .Title "Posts" }}
+        <li class="all_posts{{ range .Params.tags }} {{ . | lower }}{{ end }}">
+          <a href="{{ .Permalink }}">
+            <span class="posts-title">{{ .Title }}</span>
+            <span class="posts-date">{{ .Date.Format "Jan, 2006" }}</span>
+          </a>
+        </li>
+        {{ end }}
+        {{ end }}
+      </ul>
+    </div>
+  </nav>
+</aside>

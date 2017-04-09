@@ -1,10 +1,10 @@
 +++
 date = "2015-06-23T20:00:00+08:00"
-title = "python解析XML与生成迭代器"
+title = "Python解析XML与生成迭代器"
 tags = ["编程", "编程语言"]
 +++
 
-这次来看看python解析XML与生成迭代器。
+这次来看看Python解析XML与生成迭代器。
 
 ## 迭代器
 
@@ -39,9 +39,9 @@ if __name__ == '__main__':
 可以看出第一次调用genTest()时执行了1,2位置的代码。
 之后yield将i返回给caller的i，然后再次调用时继续从genTest上次yield之后的代码执行，直至最后return停止，迭代结束。
 
-## python解析XML
+## Python解析XML
 
-python解析XML有许多种方法，它们各有特色。
+Python解析XML有许多种方法，它们各有特色。
 
 ### ElementTree
 
