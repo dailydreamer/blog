@@ -8,6 +8,4 @@
 - [x] add keywords for posts
 - [x] add animation
 - [x] fix display on firefox
-- [ ] add ajax
-- [ ] add progress bar and post fadein
 - [ ] add CI
