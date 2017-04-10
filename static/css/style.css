@@ -81,7 +81,7 @@ aside css
 
 .sidebar {
   margin: 1.7em 0.5em;
-  margin-bottom: 3em;
+  margin-bottom: 4em;
 }
 
 #tags__ul {
@@ -115,7 +115,8 @@ article markdown css
 ***/
 
 .post {
-  margin: 2em 2em;
+  max-width: 40em;
+  margin: 2em auto;
   margin-bottom: 5em;
 }
 
