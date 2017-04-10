@@ -2,6 +2,7 @@
 date = "2016-05-25T20:00:00+08:00"
 title = "WebRTC简介"
 tags = ["编程", "WEB"]
+keywords = ["WebRTC", "屏幕分享"]
 +++
 
 ## [WebRTC](http://www.html5rocks.com/en/tutorials/webrtc/basics/)简介

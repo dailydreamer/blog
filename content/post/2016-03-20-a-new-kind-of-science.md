@@ -2,6 +2,7 @@
 date = "2016-03-20T20:00:00+08:00"
 title = "一种新科学"
 tags = ["读书笔记", "科学"]
+keywords = ["Wolfram", "细胞自动机"]
 +++
 
 本书作者是Mathematica之父Stephen Wolfram。

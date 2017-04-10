@@ -2,6 +2,7 @@
 date = "2016-06-09T20:00:00+08:00"
 title = "从函数式语言想到的"
 tags = ["编程", "编程语言"]
+keywords = ["编程语言", "函数式"]
 +++
 
 最近看了一本书[Seven Languages in Seven Weeks](https://pragprog.com/book/btlang/seven-languages-in-seven-weeks)。

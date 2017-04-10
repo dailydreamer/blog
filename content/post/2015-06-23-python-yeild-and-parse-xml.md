@@ -2,6 +2,7 @@
 date = "2015-06-23T20:00:00+08:00"
 title = "Python解析XML与生成迭代器"
 tags = ["编程", "编程语言"]
+keywords = ["python", "xml parser"]
 +++
 
 这次来看看Python解析XML与生成迭代器。

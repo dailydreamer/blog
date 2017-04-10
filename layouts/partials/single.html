@@ -8,10 +8,12 @@
 
   <div id="container">
     {{ partial "sidebar.html" . }}
-    <article class="content">
-      <h1 data-identifier="{{ dateFormat "2006-01-02" .Date }}">{{ .Title }}</h1>
-      {{ .Content }}
-      {{ partial "disqus.html" . }}      
+    <article>
+      <div class="content post">
+        <h1 data-identifier="{{ dateFormat "2006-01-02" .Date }}">{{ .Title }}</h1>
+        {{ .Content }}
+        {{ partial "disqus.html" . }}
+      </div>      
     </article>
   </div>
   

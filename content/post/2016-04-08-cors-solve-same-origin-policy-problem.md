@@ -2,6 +2,7 @@
 date = "2016-04-08T20:00:00+08:00"
 title = "CORS解决单页应用跨域问题"
 tags = ["编程", "WEB"]
+keywords = ["同源策略", "JSONP", "CORS"]
 +++
 
 ## [同源策略](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy)

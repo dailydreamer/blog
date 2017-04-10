@@ -1,6 +1,6 @@
 +++
 date = "2015-06-02T20:00:00+08:00"
-title = "在AWS EC2上配置ElasticSearch"
+title = "在AWS上配置ElasticSearch"
 tags = ["编程", "ElasticSearch"]
 keywords = ["AWS", "ElasticSearch"]
 +++
