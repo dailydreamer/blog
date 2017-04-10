@@ -47,15 +47,15 @@ responsive css
 aside {
   position: fixed;
   height: 100%;
-  width: 20em;
+  width: 22em;
   background: rgba(250, 250, 250, 0.95);
   border-right: 1px solid #e5e8ec;
-  left: -20em;
+  left: -22em;
   transition: transform 0.2s;
 }
 
 aside.active {
-  transform: translate(20em);
+  transform: translate(22em);
 }
 
 article {
@@ -68,10 +68,10 @@ article {
 
 @media (min-width: 768px) {
   aside {
-    transform: translate(20em);
+    transform: translate(22em);
   }
   article {
-    margin-left: 20em;
+    margin-left: 22em;
   }
 }
 

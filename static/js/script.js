@@ -3,7 +3,7 @@ var tagsSwitcherHandler = function(tag) {
   return function() {
     $(this).addClass('is-primary').siblings().removeClass('is-primary');
     $('#posts__ul > .all_posts').hide();
-    $('#posts__ul > .' + tag).show();
+    $('#posts__ul > .' + tag).fadeIn(350);
   }
 };
 

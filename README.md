@@ -6,5 +6,8 @@
 - [x] change font
 - [x] margin bottom not working
 - [x] add keywords for posts
-- [ ] add animation and loading progress bar
+- [x] add animation
+- [x] fix display on firefox
+- [ ] add ajax
+- [ ] add progress bar and post fadein
 - [ ] add CI
