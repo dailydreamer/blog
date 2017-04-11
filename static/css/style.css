@@ -118,6 +118,8 @@ article markdown css
   max-width: 40em;
   margin: 2em auto;
   margin-bottom: 5em;
+  padding-left: 2em;
+  padding-right: 2em;
 }
 
 .content h1, .content h2 {
