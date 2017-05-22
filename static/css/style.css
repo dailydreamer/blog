@@ -32,11 +32,9 @@ aside and article can scrool seperately
 
 aside, article {
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
-aside::-webkit-scrollbar,
-article::-webkit-scrollbar {
+aside::-webkit-scrollbar {
   display: none;
 }
 
