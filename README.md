@@ -32,4 +32,4 @@ hugo
 - [ ] add CI
 - [ ] add search with lunar.js
 - [ ] show tags at post view
-- [ ] mathjax support
+- [x] mathjax support
