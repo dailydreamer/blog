@@ -1,12 +1,12 @@
 <aside>
   <nav class="sidebar">
     <div id="tags__ul">
-      <a id="all_posts" class="tag is-primary">
+      <a id="all_posts" class="tag is-rounded is-primary">
         全部 
         <span class="tag-count">{{ sub (len (where .Site.Pages "Type" "post")) 1 }}</span>
       </a>
       {{ range .Site.Taxonomies.tags.ByCount }}
-      <a id="{{ .Term }}" class="tag">
+      <a id="{{ .Term }}" class="tag is-rounded">
         {{ .Term }} 
         <span class="tag-count">{{ .Count }}</span>
       </a>

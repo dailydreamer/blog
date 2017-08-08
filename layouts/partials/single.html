@@ -10,7 +10,15 @@
     {{ partial "sidebar.html" . }}
     <article>
       <div class="content post">
-        <h1 data-identifier="{{ dateFormat "2006-01-02" .Date }}">{{ .Title }}</h1>
+        <h1 data-identifier="{{ dateFormat "2006-01-02" .Date }}">
+          {{ .Title }}
+          <span class="posts-date">{{ .Date.Format "Jan, 2006" }}</span> 
+        </h1>       
+        <div class="tags">
+          {{ range .Params.tags }}
+          <span class="tag is-medium" style="margin-left:0">{{ . }}</span>
+          {{ end }}
+        </div>
         {{ .Content }}
         {{ partial "disqus.html" . }}
       </div>      

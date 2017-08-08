@@ -31,6 +31,6 @@ hugo
 - [x] fix display on firefox
 - [ ] add CI
 - [ ] add search with lunar.js
-- [ ] show tags at post view
+- [x] show tags at post view
 - [x] mathjax support
 - [x] add image caption
