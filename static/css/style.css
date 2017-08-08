@@ -140,3 +140,17 @@ navbar css
 a.nav-item{
   color: #64717f;
 }
+
+/***
+image and caption
+***/
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+
+img + em { 
+  display: block;
+  text-align: center;
+}

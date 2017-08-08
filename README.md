@@ -33,3 +33,4 @@ hugo
 - [ ] add search with lunar.js
 - [ ] show tags at post view
 - [x] mathjax support
+- [x] add image caption
