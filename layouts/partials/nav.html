@@ -9,6 +9,11 @@
   </div>
 
   <div class="nav-center">
+    <div class="searchbox">
+      <label for="search-by"><i class="fa fa-search"></i></label>
+      <input data-search-input id="search-by" type="text" placeholder="{{T "Search-placeholder"}}">
+      <span data-search-clear=""><i class="fa fa-close"></i></span>
+    </div>
     <a class="nav-item" href="{{ .Site.Params.github }}">
       <span class="icon">
         <i class="fa fa-github"></i>
