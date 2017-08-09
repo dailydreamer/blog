@@ -9,4 +9,6 @@ googleAnalytics = "UA-75912368-1"
   description = "dailydreamer的小空间"
   github = "https://github.com/dailydreamer"
   favicon = "avatar.jpg"
-  
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
