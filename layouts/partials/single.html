@@ -20,7 +20,8 @@
           {{ end }}
         </div>
         {{ .Content }}
-        {{ partial "disqus.html" . }}
+        
+        {{ template "_internal/disqus.html" . }}
       </div>      
     </article>
   </div>
