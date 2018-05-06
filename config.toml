@@ -1,4 +1,4 @@
-baseURL = "dailydreamer.me"
+baseURL = "https://dailydreamer.me"
 title = "dailydreamer"
 author = "dailydreamer"
 languageCode = "zh-cn"

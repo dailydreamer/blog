@@ -12,7 +12,7 @@ keywords = ["创业"]
 
 Nutt 坚果健身是一个能收集器械健身数据的智能硬件。
 
-<iframe src="https://player.vimeo.com/video/250402480" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<embed src="https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=e0162ebqhoq&auto=0" allowFullScreen="true" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
 
 当时是第一次参加创客比赛，抱着试一试的心态，但是因为优秀的团队合作和切中热点的题目，我们最后获得了2015年中美青年创客大赛的一等奖（这里也可以看见选择的重要性哈哈）。
 这个比赛的级别很高，比赛之后接受了一些媒体采访宣传，还有机会去了湖南卫视的天天向上，也是第一次接触到了一些投资人，同时有一个硬件工厂想要和我们合作把这个项目落地。
