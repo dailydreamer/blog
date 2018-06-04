@@ -13,7 +13,7 @@ html, body {
 }
 
 a {
-  color: inherit;
+  color: #00d1b2;
   text-decoration: none;
   -webkit-transition: color .35s;
   -moz-transition: color .35s;

@@ -28,14 +28,14 @@ FoodGo的创新点在于使用层级式的方式配送。
 Sensor使用了ZED的双目摄像头。选用双目是因为RGBD摄像头在室外环境无法使用，而Lidar价格过于昂贵。
 选用ZED是因为虽然它基线较短在室外场景远距离精度有限，但是它便宜并且有完善的驱动，虽然最后被驱动坑了很多。。。下文会提到。
 SLAM框架选择了rtabmap因为它在ROS上提供了完整的建图定位工具链，适合快速开发原型。
-Path planner和controller直接选用ROS提供的 (move_base)[http://wiki.ros.org/move_base]，它使用了dijkstra算法作为global planner，DWA算法作为local planner。
+Path planner和controller直接选用ROS提供的[move_base](http://wiki.ros.org/move_base)，它使用了dijkstra算法作为global planner，DWA算法作为local planner。
 
 ## 传感器及处理
 
 这部分本来的理想情况是使用ZED的驱动直接获取深度信息，但是问题来了，ZED的驱动必须要cuda库，而我的笔记本没有GPU。。。
 所以这部分只能利用ROS的一些库自己实现了。
 ZED摄像头在Ubuntu 16.04下能被系统驱动识别显示为 /dev/video* (*的数值取决于你的其他video设备)，而在Ubuntu 14.04的驱动下还无法识别，当时为了这个还重装了系统。。。
-然后我fork了一个开源的(ZED CPU驱动)[https://github.com/dailydreamer/zed_cpu_ros]，做了一些小修改。
+然后我fork了一个开源的[ZED CPU驱动](https://github.com/dailydreamer/zed_cpu_ros)，做了一些小修改。
 它使用OpenCV的ROS bridge将图片读入ROS，将它们发布成左右两个ROS topic并作时间同步。
 然后使用ROS的[stereo_image_proc](http://wiki.ros.org/stereo_image_proc)包undistorting原始图像并且算出disparity map。
 
@@ -46,7 +46,7 @@ ZED摄像头在Ubuntu 16.04下能被系统驱动识别显示为 /dev/video* (*�
 
 当时还遇到了一个问题，就是robot坐标系base link到摄像头坐标系camera link是一个平移，但是摄像头坐标系到实际的图像坐标系是有一个别扭的旋转的，因为它们安排x y z轴的指向并不一样。
 当时忽略了这一点导致建出来的图是旋转的，困扰了一阵子。
-具体如何旋转可以参考(这个回答)[https://answers.ros.org/question/271979/3d-reconstruction-with-stereo-cameras/]。
+具体如何旋转可以参考[这个回答](https://answers.ros.org/question/271979/3d-reconstruction-with-stereo-cameras/)。
 
 ## Rtabmap建图与定位
 
