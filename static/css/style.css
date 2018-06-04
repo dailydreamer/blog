@@ -9,6 +9,7 @@ html, body {
   font-family: "Noto Sans", "Noto Sans CJK SC", "Source Han Serif", "Source Han Serif SC", sans-serif;;
   -webkit-font-smoothing: subpixel-antialiased;
   -webkit-text-size-adjust: none;
+  text-size-adjust: none;
   overflow: hidden;
 }
 
@@ -131,6 +132,10 @@ article markdown css
 
 .content h5, .content h6 {
   font-weight: 400; 
+}
+
+.content pre {
+  padding: 0;
 }
 
 /***
