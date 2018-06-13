@@ -1,7 +1,7 @@
 +++
 date = "2015-06-22T20:00:00+08:00"
 title = "ElasticSearch搜索配置（2）"
-tags = ["编程", "ElasticSearch"]
+tags = ["编程"]
 keywords = ["ElasticSearch", "搜索"]
 +++
 

@@ -87,7 +87,7 @@ blame是关于judging但是contribution是关于understanding并且looking forwa
 
 情感是基于感知的，感知可以协商，因此情感也可以协商。
 
-### the identity conversation
+### The identity conversation
 
 #### Groud your identity: ask yourself what's at stake
 
@@ -97,7 +97,7 @@ blame是关于judging但是contribution是关于understanding并且looking forwa
 
 找到你的不稳定的认知，然后对它有清楚的认识。
 
-### create a learning conversation
+### Create a learning conversation
 
 #### What's your purpose? When to raise it and when to let it go
 
@@ -180,5 +180,4 @@ Look to standards for what should happen. Keep in mind the
 standard of mutual caretaking; relationships that always go one
 way rarely last.
 
-Talk about how to keep communication open as you go for-
-ward.
+Talk about how to keep communication open as you go forward.
