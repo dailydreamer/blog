@@ -3,7 +3,7 @@
     <div id="tags__ul">
       <a id="all_posts" class="tag is-rounded is-primary">
         全部 
-        <span class="tag-count">{{ sub (len (where .Site.Pages "Type" "post")) 1 }}</span>
+        <span class="tag-count">{{ sub (len (where .Site.Pages "Type" "posts")) 1 }}</span>
       </a>
       {{ range .Site.Taxonomies.tags.ByCount }}
       <a id="{{ .Term }}" class="tag is-rounded">
@@ -15,7 +15,7 @@
 
     <div class="menu">
       <ul id="posts__ul" class="menu-list">
-        {{ range (where .Site.Pages "Type" "post") }}
+        {{ range (where .Site.Pages "Type" "posts") }}
         {{ if ne .Title "Posts" }}
         <li class="all_posts {{ (delimit .Params.tags " ") | lower }}">
           <a href="{{ .Permalink }}">
