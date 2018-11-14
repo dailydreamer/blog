@@ -14,7 +14,7 @@ FoodGo的创新点在于使用层级式的方式配送。
 而且这一方式以后可以升级为大车也无人驾驶，渐进式的方案更容易快速落地。
 可以参考下面这个视频
 
-<iframe src="https://player.vimeo.com/video/250400672" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<iframe src="//player.bilibili.com/player.html?aid=35924782&page=1" width="100%" height="360" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 今天主要来讲讲实现原型时的一些技术问题。
 

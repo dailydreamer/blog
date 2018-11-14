@@ -3,7 +3,7 @@
 Create a new post.
 
 ```sh
-hugo new post/date-post_name.md
+hugo new posts/date-post_name.md
 ```
 
 Preview content at localhost.
