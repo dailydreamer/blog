@@ -13,3 +13,10 @@ googleAnalytics = "UA-75912368-1"
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
+
+[params.utteranc]
+  enable = true
+  repo = "dailydreamer/dailydreamer.github.io"
+  issueTerm = "title"
+  label="Comment"
+  theme = "github-light"
