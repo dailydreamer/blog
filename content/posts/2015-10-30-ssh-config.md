@@ -1,7 +1,7 @@
 +++
 date = "2015-10-30T20:00:00+08:00"
 title = "多个github账号的ssh key切换"
-tags = ["编程", "ssh"]
+tags = ["编程"]
 keywords = ["ssh"]
 +++
 
