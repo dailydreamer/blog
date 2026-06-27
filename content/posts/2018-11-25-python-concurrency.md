@@ -1,7 +1,7 @@
 +++
 date = "2018-11-25T17:43:19-08:00"
 title = "Python 并发模型"
-tags = ["编程","编程语言"]
+tags = ["技术"]
 keywords = ["并发","asyncio"]
 +++
 

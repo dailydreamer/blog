@@ -1,7 +1,7 @@
 +++
 date = "2017-12-05T02:25:44-08:00"
 title = "Nutriment"
-tags = ["项目", "产品"]
+tags = ["项目"]
 keywords = ["设计思维", "Design Thinking"]
 +++
 
