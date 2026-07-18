@@ -1,0 +1,92 @@
+---
+import Sidebar from "@/components/Sidebar.astro";
+import Utterances from "@/components/Utterances.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { formatPostDate, getPosts, getTagLabel, getTags } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const [posts, tags] = await Promise.all([getPosts(), getTags()]);
+---
+
+<BaseLayout
+  title={post.title}
+  description={post.excerpt}
+  keywords={[...post.tags, ...post.keywords]}
+  canonicalPath={`/posts/${post.slug}/`}
+  type="article"
+  includeMath={post.hasMath}
+>
+  <Sidebar posts={posts} tags={tags} currentSlug={post.slug} />
+  <main class:list={["site-main article-main", post.headings.length > 0 && "has-article-toc"]}>
+    <article class="mx-auto max-w-3xl px-5 py-10 lg:px-8 lg:py-14">
+      <header class="border-b border-line pb-8">
+        <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted">
+          <time datetime={post.date.toISOString()}>{formatPostDate(post.date, "long")}</time>
+          {post.tags.map((tag) => <a href={`/tags/${encodeURIComponent(tag)}/`} class="rounded-full bg-mint-soft px-2.5 py-1 text-ink">{getTagLabel(tag)}</a>)}
+        </div>
+        <h1 class="mt-4 text-4xl font-semibold leading-tight text-ink md:text-5xl">{post.title}</h1>
+        <p class="mt-5 text-sm text-muted">本文 {post.wordCount.toLocaleString("zh-CN")} 字，约 {post.readingMinutes} 分钟读完</p>
+      </header>
+      <div class="content mt-9" set:html={post.html} />
+      <Utterances />
+    </article>
+
+    {
+      post.headings.length > 0 && (
+        <>
+          <button
+            id="article-toc-toggle"
+            class="article-toc-toggle"
+            type="button"
+            aria-controls="article-toc"
+            aria-expanded="true"
+          >
+            <span class="sr-only">切换文章结构</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+          <aside id="article-toc" class="article-toc" aria-label="文章结构">
+            <div class="article-toc-title">文章结构</div>
+            <nav>
+              {post.headings.map((heading) => (
+                <a href={`#${heading.slug}`} class:list={["article-toc-link", heading.depth === 3 && "is-nested"]}>
+                  {heading.text}
+                </a>
+              ))}
+            </nav>
+          </aside>
+        </>
+      )
+    }
+  </main>
+
+  <script>
+    const tocToggle = document.getElementById("article-toc-toggle");
+    const tocStorageKey = "dailydreamer-article-toc-collapsed-v2";
+
+    function setArticleTocCollapsed(collapsed) {
+      document.body.classList.toggle("article-toc-collapsed", collapsed);
+      tocToggle?.setAttribute("aria-expanded", String(!collapsed));
+      try {
+        localStorage.setItem(tocStorageKey, collapsed ? "1" : "0");
+      } catch {}
+    }
+
+    try {
+      setArticleTocCollapsed(localStorage.getItem(tocStorageKey) === "1");
+    } catch {}
+
+    tocToggle?.addEventListener("click", () => {
+      setArticleTocCollapsed(!document.body.classList.contains("article-toc-collapsed"));
+    });
+  </script>
+</BaseLayout>

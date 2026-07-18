@@ -1,7 +1,7 @@
 +++
 date = "2017-05-21T16:42:02+08:00"
 title = "游戏化 Gamification"
-tags = ["读书"]
+tags = ["一苇书舟"]
 keywords = ["游戏化", "Gamification"]
 +++
 
