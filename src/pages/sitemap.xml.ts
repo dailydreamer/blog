@@ -13,6 +13,7 @@ export async function GET() {
   const [posts, tags] = await Promise.all([getPosts(), getTags()]);
   const urls = [
     { loc: `${site.url}/`, lastmod: posts[0]?.date.toISOString() },
+    { loc: `${site.url}/posts/`, lastmod: posts[0]?.date.toISOString() },
     ...posts.map((post) => ({
       loc: `${site.url}/posts/${post.slug}/`,
       lastmod: post.date.toISOString(),

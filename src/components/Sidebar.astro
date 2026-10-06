@@ -19,7 +19,7 @@ const { posts, tags, activeTag, currentSlug } = Astro.props;
   aria-controls="site-sidebar"
   aria-expanded="true"
 >
-  <span class="sr-only">切换左侧目录</span>
+  <span class="sr-only">文章目录</span>
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path d="M15 6l-6 6 6 6" />
   </svg>
@@ -27,13 +27,18 @@ const { posts, tags, activeTag, currentSlug } = Astro.props;
 
 <aside id="site-sidebar" class="site-sidebar border-b border-line bg-white/92 lg:fixed lg:inset-y-0 lg:left-0 lg:w-88 lg:overflow-y-auto lg:border-b-0 lg:border-r">
   <div class="mx-auto flex max-w-6xl flex-col gap-7 px-5 py-6 lg:max-w-none lg:px-6 lg:py-8">
-    <a href="/" class="flex items-center gap-3">
+    <div class="sidebar-profile">
+    <a href="/" class="sidebar-profile-link flex items-center gap-3">
       <img src={site.avatar} alt="dailydreamer avatar" class="size-12 rounded-full border border-line object-cover" />
       <div>
         <div class="text-lg font-semibold text-ink">dailydreamer</div>
         <div class="text-sm text-muted">技术、阅读、体验与远方</div>
       </div>
     </a>
+    <button id="mobile-directory-close" class="sidebar-toggle" type="button" aria-label="收起文章目录" aria-controls="mobile-directory" aria-expanded="true">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+    </button>
+    </div>
 
     <nav aria-label="Social links" class="social-links">
       <a href={site.github} target="_blank" rel="noreferrer" aria-label="GitHub">
@@ -59,10 +64,11 @@ const { posts, tags, activeTag, currentSlug } = Astro.props;
 
     <nav aria-label="Tags" class="flex flex-wrap gap-2">
       <a
-        href="/"
+        href="/posts/"
+        aria-current={Astro.url.pathname === "/posts/" ? "page" : undefined}
         class:list={[
           "rounded-full border px-3 py-1.5 text-sm transition",
-          !activeTag ? "border-mint bg-mint-soft text-ink" : "border-line text-muted hover:border-mint/50 hover:text-ink",
+          Astro.url.pathname === "/posts/" ? "border-mint bg-mint-soft text-ink" : "border-line text-muted hover:border-mint/50 hover:text-ink",
         ]}
       >
         全部 <span class="ml-1 text-xs">{posts.length}</span>
@@ -84,7 +90,7 @@ const { posts, tags, activeTag, currentSlug } = Astro.props;
       }
     </nav>
 
-    <nav aria-label="Posts" class="hidden space-y-1 lg:block">
+    <nav aria-label="文章目录" class="space-y-1">
       {
         posts.map((post) => (
           <a
@@ -96,7 +102,7 @@ const { posts, tags, activeTag, currentSlug } = Astro.props;
           >
             <span class="min-w-0 truncate">{post.title}</span>
             <time datetime={post.date.toISOString()} class="shrink-0 text-xs text-muted">
-              {formatPostDate(post.date)}
+              {formatPostDate(post.calendarDate)}
             </time>
           </a>
         ))
@@ -105,23 +111,140 @@ const { posts, tags, activeTag, currentSlug } = Astro.props;
   </div>
 </aside>
 
-<script>
-  const sidebarToggle = document.getElementById("sidebar-toggle");
-  const sidebarStorageKey = "dailydreamer-sidebar-collapsed";
+<dialog id="mobile-directory" class="mobile-directory" aria-labelledby="mobile-directory-title">
+  <h2 id="mobile-directory-title" class="sr-only">文章目录</h2>
+  <div id="mobile-directory-content" class="mobile-directory-content"></div>
+</dialog>
 
-  function setSidebarCollapsed(collapsed) {
-    document.body.classList.toggle("sidebar-collapsed", collapsed);
-    sidebarToggle?.setAttribute("aria-expanded", String(!collapsed));
-    try {
-      localStorage.setItem(sidebarStorageKey, collapsed ? "1" : "0");
-    } catch {}
+<script>
+  const toggle = document.getElementById("sidebar-toggle")!;
+  const sidebar = document.getElementById("site-sidebar")!;
+  const dialog = document.getElementById("mobile-directory") as HTMLDialogElement;
+  const content = document.getElementById("mobile-directory-content")!;
+  const close = document.getElementById("mobile-directory-close")!;
+  const mobile = matchMedia("(max-width: 1023px)");
+  const origin = document.createComment("sidebar position");
+  sidebar.before(origin);
+  const storageKey = "dailydreamer-sidebar-collapsed";
+  const navigationWindow = location.href === "about:srcdoc" ? window.parent : window;
+  const directoryHistory = navigationWindow.history;
+  const token = Math.random().toString(36).slice(2);
+  let desktopCollapsed = false;
+  let savedBodyStyle = "";
+  let savedScroll = 0;
+  let locked = false;
+  let waitingForBack = false;
+  let pendingLink: HTMLAnchorElement | null = null;
+  try { desktopCollapsed = localStorage.getItem(storageKey) === "1"; } catch {}
+
+  function setExpanded(expanded: boolean) {
+    toggle.setAttribute("aria-expanded", String(expanded));
+    toggle.setAttribute("aria-label", expanded ? "收起文章目录" : "展开文章目录");
   }
 
-  try {
-    setSidebarCollapsed(localStorage.getItem(sidebarStorageKey) === "1");
-  } catch {}
+  function finishClose() {
+    if (dialog.open) dialog.close();
+    if (locked) {
+      document.body.style.cssText = savedBodyStyle;
+      window.scrollTo({ top: savedScroll, behavior: "instant" });
+      locked = false;
+    }
+    if (mobile.matches) setExpanded(false);
+  }
 
-  sidebarToggle?.addEventListener("click", () => {
-    setSidebarCollapsed(!document.body.classList.contains("sidebar-collapsed"));
+  function openMenu(pushHistory = true) {
+    if (!mobile.matches || dialog.open || waitingForBack) return;
+    savedScroll = window.scrollY;
+    if (pushHistory) {
+      try { directoryHistory.pushState({ ...directoryHistory.state, mobileDirectory: token }, ""); } catch {}
+    }
+    savedBodyStyle = document.body.style.cssText;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${savedScroll}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.overflow = "hidden";
+    locked = true;
+    dialog.showModal();
+    setExpanded(true);
+    close.focus();
+  }
+
+  function closeMenu(link: HTMLAnchorElement | null = null) {
+    finishClose();
+    if (directoryHistory.state?.mobileDirectory === token) {
+      pendingLink = link;
+      waitingForBack = true;
+      directoryHistory.back();
+    } else if (link) {
+      link.click();
+    }
+  }
+
+  function syncViewport() {
+    if (dialog.open) closeMenu();
+    if (mobile.matches) {
+      document.body.classList.remove("sidebar-collapsed");
+      content.append(sidebar);
+      toggle.setAttribute("aria-controls", "mobile-directory");
+      toggle.setAttribute("aria-haspopup", "dialog");
+      setExpanded(false);
+    } else {
+      origin.after(sidebar);
+      document.body.classList.toggle("sidebar-collapsed", desktopCollapsed);
+      toggle.setAttribute("aria-controls", "site-sidebar");
+      toggle.removeAttribute("aria-haspopup");
+      setExpanded(!desktopCollapsed);
+    }
+  }
+
+  toggle.addEventListener("click", () => {
+    if (mobile.matches) { openMenu(); return; }
+    desktopCollapsed = !desktopCollapsed;
+    document.body.classList.toggle("sidebar-collapsed", desktopCollapsed);
+    setExpanded(!desktopCollapsed);
+    try { localStorage.setItem(storageKey, desktopCollapsed ? "1" : "0"); } catch {}
   });
+  dialog.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab") return;
+    const focusable = Array.from(dialog.querySelectorAll<HTMLElement>("button, a[href]"));
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+  close.addEventListener("click", () => closeMenu());
+  dialog.addEventListener("cancel", (event) => { event.preventDefault(); closeMenu(); });
+  dialog.addEventListener("click", (event) => {
+    if (event.target !== dialog) return;
+    const box = dialog.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) closeMenu();
+  });
+  sidebar.addEventListener("click", (event) => {
+    const link = (event.target as Element).closest("a");
+    if (!mobile.matches || !dialog.open || !link) return;
+    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target === "_blank") {
+      closeMenu();
+      return;
+    }
+    event.preventDefault();
+    event.stopPropagation();
+    closeMenu(link);
+  });
+  function onHistoryChange() {
+    waitingForBack = false;
+    if (directoryHistory.state?.mobileDirectory === token && mobile.matches) { openMenu(false); return; }
+    finishClose();
+    const link = pendingLink;
+    pendingLink = null;
+    if (link) link.click();
+  }
+  navigationWindow.addEventListener("popstate", onHistoryChange);
+  window.addEventListener("pagehide", () => {
+    finishClose();
+    navigationWindow.removeEventListener("popstate", onHistoryChange);
+  });
+  window.addEventListener("pageshow", () => { navigationWindow.addEventListener("popstate", onHistoryChange); finishClose(); syncViewport(); });
+  mobile.addEventListener("change", syncViewport);
+  syncViewport();
 </script>

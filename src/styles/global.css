@@ -40,12 +40,38 @@ img {
   z-index: 30;
 }
 
+/* Keep directory scrollbars subtle without changing scrolling or layout on hover. */
+:is(.site-sidebar, .mobile-directory-content) {
+  --directory-scrollbar-thumb: rgb(102 112 133 / .16);
+  scrollbar-width: thin;
+  scrollbar-color: var(--directory-scrollbar-thumb) transparent;
+}
+:is(.site-sidebar, .mobile-directory-content):is(:hover, :focus-within) {
+  --directory-scrollbar-thumb: rgb(102 112 133 / .38);
+}
+@supports selector(::-webkit-scrollbar) {
+  :is(.site-sidebar, .mobile-directory-content) {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
+  :is(.site-sidebar, .mobile-directory-content)::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  :is(.site-sidebar, .mobile-directory-content)::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  :is(.site-sidebar, .mobile-directory-content)::-webkit-scrollbar-thumb {
+    background: var(--directory-scrollbar-thumb);
+    border-radius: 999px;
+  }
+}
+
 .site-main {
   transition: margin-left 180ms ease, margin-right 180ms ease;
 }
 
-.sidebar-toggle,
-.article-toc-toggle {
+.sidebar-toggle {
   position: fixed;
   z-index: 50;
   display: none;
@@ -61,14 +87,12 @@ img {
   transition: background 160ms ease, color 160ms ease, transform 180ms ease;
 }
 
-.sidebar-toggle:hover,
-.article-toc-toggle:hover {
+.sidebar-toggle:hover {
   background: var(--color-mint-soft);
   color: var(--color-ink);
 }
 
-.sidebar-toggle svg,
-.article-toc-toggle svg {
+.sidebar-toggle svg {
   width: 1.05rem;
   height: 1.05rem;
   fill: none;
@@ -161,12 +185,12 @@ img {
   animation: home-copy-drift 1200ms ease-out both;
 }
 
-.home-cover-copy p {
+.home-cover-copy .home-introduction {
   animation-delay: 140ms;
 }
 
 .home-cover-copy h1,
-.home-cover-copy p {
+.home-cover-copy .home-introduction {
   max-width: min(56rem, 100%);
   margin: 0;
   font-family: var(--font-serif);
@@ -182,7 +206,7 @@ img {
   line-height: 1.04;
 }
 
-.home-cover-copy p {
+.home-cover-copy .home-introduction {
   align-self: flex-end;
   max-width: min(40rem, 100%);
   color: #fff3d5;
@@ -214,18 +238,11 @@ img {
 }
 
 .article-toc {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 40;
-  width: 22rem;
-  max-width: calc(100vw - 4rem);
-  overflow-y: auto;
-  border-left: 1px solid var(--color-line);
-  background: rgba(255, 255, 255, 0.96);
-  padding: 2rem 1.4rem;
-  transition: transform 180ms ease, opacity 180ms ease;
+  margin-top: 2rem;
+  border: 1px solid var(--color-line);
+  border-radius: .5rem;
+  padding: 1rem;
+  background: white;
 }
 
 .article-toc-title {
@@ -255,25 +272,6 @@ img {
 .article-toc-link.is-nested {
   padding-left: 1.15rem;
   font-size: 0.78rem;
-}
-
-.article-toc-toggle {
-  top: 1rem;
-  right: 20.9rem;
-}
-
-.article-toc-collapsed .article-toc {
-  transform: translateX(100%);
-  opacity: 0;
-  pointer-events: none;
-}
-
-.article-toc-collapsed .article-toc-toggle {
-  right: 0.85rem;
-}
-
-.article-toc-collapsed .article-toc-toggle svg {
-  transform: rotate(180deg);
 }
 
 .content {
@@ -410,45 +408,47 @@ img {
   }
 }
 
-@media (min-width: 1180px) {
-  .article-main.has-article-toc {
-    margin-right: 22rem;
-  }
-
-  .article-toc-collapsed .article-main.has-article-toc {
-    margin-right: 0;
-  }
-
-  .article-toc-toggle {
-    display: inline-flex;
-  }
+.home-introduction h3 { margin: 0; font: inherit; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px solid #007d6c; outline-offset: 4px; }
+.content ul { list-style: disc; }
+.content ol { list-style: decimal; }
+.content table { display: block; max-width: 100%; overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-@media (max-width: 1179px) {
-  .article-toc {
-    top: auto;
-    right: 0.85rem;
-    bottom: 0.85rem;
-    width: min(17rem, calc(100vw - 2rem));
-    max-height: min(24rem, calc(100vh - 2rem));
-    border: 1px solid var(--color-line);
-    border-radius: 0.5rem;
-    padding: 0.9rem;
-    box-shadow: 0 16px 42px rgba(23, 32, 42, 0.11);
-  }
-
-  .article-toc-toggle {
-    right: 0.85rem;
-    bottom: 0.85rem;
-    display: inline-flex;
-    top: auto;
-  }
-
-  .article-toc:not(:hover) {
-    padding-bottom: 3.6rem;
-  }
-
-  .article-toc-collapsed .article-toc {
-    transform: translateY(calc(100% + 1.4rem));
-  }
+/* A single modal directory on phones; desktop keeps the existing sidebar. */
+.mobile-directory {
+  padding: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  width: calc(100vw - 1rem - env(safe-area-inset-left) - env(safe-area-inset-right));
+  max-width: 44rem;
+  height: calc(100dvh - 1rem - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  max-height: none;
+  inset: max(.5rem, env(safe-area-inset-top)) max(.5rem, env(safe-area-inset-right)) max(.5rem, env(safe-area-inset-bottom)) max(.5rem, env(safe-area-inset-left));
+  margin: auto;
+  overflow: hidden;
 }
+.mobile-directory[open] { display: flex; flex-direction: column; }
+.mobile-directory::backdrop { background: rgb(15 23 42 / .55); }
+.sidebar-profile { display: flex; align-items: center; gap: .5rem; }
+.sidebar-profile-link { min-width: 0; flex: 1; }
+.sidebar-profile-link img { flex-shrink: 0; }
+#mobile-directory-close { display: none; }
+.mobile-directory-content { overflow-y: auto; overscroll-behavior: contain; min-height: 0; flex: 1; }
+@media (max-width: 1023px) {
+  .sidebar-toggle { width: 44px; height: 44px; top: max(1rem, env(safe-area-inset-top)); left: max(1rem, env(safe-area-inset-left)); right: auto; }
+  .mobile-directory .sidebar-profile { position: sticky; top: 0; z-index: 1; background: var(--color-paper); padding-block: .5rem; }
+  .mobile-directory #mobile-directory-close { display: inline-flex; position: static; flex: 0 0 44px; width: 44px; height: 44px; }
+  .article-main > article, .home-cover-copy { padding-top: 5rem; }
+  .mobile-directory .site-sidebar { border: 0; background: transparent; }
+  .mobile-directory .site-sidebar > div { gap: 1rem; padding: 1rem; }
+  .mobile-directory nav[aria-label="文章目录"] a { min-height: 44px; }
+  .mobile-directory nav[aria-label="文章目录"] a > span { white-space: normal; overflow: visible; overflow-wrap: anywhere; }
+}
+.sidebar-toggle[aria-expanded="false"] svg { transform: rotate(180deg); }
+.content [id] { scroll-margin-top: 4rem; }

@@ -11,6 +11,7 @@ export type Post = {
   slug: string;
   title: string;
   date: Date;
+  calendarDate: string;
   tags: string[];
   keywords: string[];
   markdown: string;
@@ -78,7 +79,8 @@ function buildExcerpt(markdown: string): string {
   return paragraph
     .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
     .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/[`*_>#-]/g, "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/[`*_>~#-]/g, "")
     .replace(/\s+/g, " ")
     .slice(0, 150);
 }
@@ -178,6 +180,7 @@ async function readPost(file: string): Promise<Post> {
     slug,
     title: parsed.data.title ?? slug,
     date: normalizeDate(parsed.data.date),
+    calendarDate: String(parsed.data.date instanceof Date ? parsed.data.date.toISOString() : parsed.data.date).slice(0, 10),
     tags: parsed.data.tags ?? [],
     keywords: parsed.data.keywords ?? [],
     markdown,
@@ -221,16 +224,17 @@ export async function getHomeContent(): Promise<{ title: string; html: string }>
 
   return {
     title: data.title ?? "Welcome to Dailydreamer's Space",
-    html: await marked.parse(markdown),
+    html: await marked.parse(markdown.replace(/!\[journey\]\(\/images\/journey\.jpg\)/, "")),
   };
 }
 
-export function formatPostDate(date: Date, style: "short" | "long" = "short"): string {
+export function formatPostDate(date: Date | string, style: "short" | "long" = "short"): string {
   return new Intl.DateTimeFormat("zh-CN", {
+    timeZone: "UTC",
     year: "numeric",
     month: style === "long" ? "long" : "short",
     day: style === "long" ? "numeric" : undefined,
-  }).format(date);
+  }).format(typeof date === "string" ? new Date(`${date}T12:00:00Z`) : date);
 }
 
 export function getTagLabel(tag: string): string {

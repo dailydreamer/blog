@@ -5,7 +5,7 @@ import { getHomeContent, getPosts, getTags } from "@/lib/content";
 import { site } from "@/lib/site";
 
 const [posts, tags, home] = await Promise.all([getPosts(), getTags(), getHomeContent()]);
-const homeQuote = "We walk until the path is done, in wind and sand and setting sun";
+
 ---
 
 <BaseLayout title={site.title} description={site.description} image="/images/journey.jpg">
@@ -17,7 +17,7 @@ const homeQuote = "We walk until the path is done, in wind and sand and setting 
         <div class="home-cover-shade" aria-hidden="true"></div>
         <div class="home-cover-copy">
           <h1>{home.title}</h1>
-          <p>{homeQuote}</p>
+          <div class="home-introduction" set:html={home.html} />
         </div>
       </article>
     </section>
