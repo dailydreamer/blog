@@ -38,7 +38,8 @@ test('legacy article, lowercase Hugo slug and original tag paths redirect to exi
  for(const p of posts)if(p.slug!==p.slug.toLowerCase())routes[`posts/${p.slug.toLowerCase()}`]=`posts/${p.slug}`;
  for(const [old,current] of Object.entries(routes)){const html=decodeURIComponent(read(`${old}/index.html`));assert.ok(html.includes(`/${current}/`));assert.ok(fs.existsSync(`dist/${current}/index.html`));}
 });
-test('sitemap, CNAME and 404 canonical are valid',()=>{
+test('sitemap, Pages publishing markers and 404 canonical are valid',()=>{
+ assert.equal(read('.nojekyll'),'');assert.equal(read('CNAME').trim(),'dailydreamer.me');
  const sitemap=read('sitemap.xml');assert.ok(sitemap.includes('https://dailydreamer.me/posts/'));for(const p of posts)assert.ok(sitemap.includes(`/posts/${p.slug}/`));for(const t of tags)assert.ok(sitemap.includes(`/tags/${encodeURIComponent(t.name)}/`));assert.equal(read('CNAME'),fs.readFileSync('static/CNAME','utf8'));assert.match(read('404.html'),/rel="canonical" href="https:\/\/dailydreamer.me\/404.html"/);
 });
 
