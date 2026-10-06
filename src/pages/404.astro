@@ -1,0 +1,22 @@
+---
+import Sidebar from "@/components/Sidebar.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getPosts, getTags } from "@/lib/content";
+
+const [posts, tags] = await Promise.all([getPosts(), getTags()]);
+---
+
+<BaseLayout canonicalPath="/404.html" title="页面未找到" description="这个页面不存在，回到 dailydreamer 首页继续浏览。">
+  <Sidebar posts={posts} tags={tags} />
+  <main class="site-main">
+    <section class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-5 py-16 lg:px-10">
+      <p class="text-sm font-medium text-mint">404</p>
+      <h1 class="mt-3 text-4xl font-semibold text-ink md:text-5xl">页面不在这条路上</h1>
+      <p class="mt-4 text-lg leading-8 text-muted">可能链接已经移动，或者旧站路径还没有迁移过来。</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="/" class="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white transition hover:bg-mint">回首页</a>
+        <a href="/rss.xml" class="rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink transition hover:border-mint hover:bg-mint-soft">RSS</a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

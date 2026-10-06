@@ -1,0 +1,69 @@
+---
+import "@/styles/global.css";
+import { site } from "@/lib/site";
+
+type Props = {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  canonicalPath?: string;
+  image?: string;
+  type?: "website" | "article";
+  includeMath?: boolean;
+};
+
+const {
+  title = site.title,
+  description = site.description,
+  keywords = [],
+  canonicalPath = Astro.url.pathname,
+  image = site.avatar,
+  type = "website",
+  includeMath = false,
+} = Astro.props;
+const pageTitle = title === site.title ? site.title : `${title} | ${site.title}`;
+const canonicalUrl = new URL(canonicalPath, site.url).toString();
+const imageUrl = new URL(image, site.url).toString();
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content={description} />
+    <meta name="author" content={site.author} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(", ")} />}
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href={site.avatar} />
+    <link rel="alternate" type="application/rss+xml" title="dailydreamer" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title="dailydreamer" href="/index.xml" />
+    <title>{pageTitle}</title>
+    {
+      includeMath && (
+        <>
+          <script is:inline>
+            window.MathJax = {
+              tex: {
+                inlineMath: [["\\(", "\\)"]],
+                displayMath: [["$$", "$$"], ["\\[", "\\]"]],
+              },
+              svg: { fontCache: "global" },
+            };
+          </script>
+          <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+        </>
+      )
+    }
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,33 @@
+---
+import PostCard from "@/components/PostCard.astro";
+import Sidebar from "@/components/Sidebar.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getPosts, getTagLabel, getTags } from "@/lib/content";
+
+export async function getStaticPaths() {
+  const tags = await getTags();
+  return tags.map((tag) => ({
+    params: { tag: tag.name },
+    props: { tagName: tag.name },
+  }));
+}
+
+const { tagName } = Astro.props;
+const [posts, tags] = await Promise.all([getPosts(), getTags()]);
+const filteredPosts = posts.filter((post) => post.tags.includes(tagName));
+const tagLabel = getTagLabel(tagName);
+---
+
+<BaseLayout title={`${tagLabel} - dailydreamer`} description={`dailydreamer 关于 ${tagLabel} 的文章`}>
+  <Sidebar posts={posts} tags={tags} activeTag={tagName} />
+  <main class="site-main">
+    <section class="mx-auto max-w-5xl px-5 py-10 lg:px-10 lg:py-14">
+      <p class="text-sm font-medium text-mint">Tag</p>
+      <h1 class="mt-2 text-4xl font-semibold text-ink">{tagLabel}</h1>
+      <p class="mt-3 text-muted">{filteredPosts.length} 篇文章</p>
+      <div class="mt-8 grid gap-4 md:grid-cols-2">
+        {filteredPosts.map((post) => <PostCard post={post} />)}
+      </div>
+    </section>
+  </main>
+</BaseLayout>

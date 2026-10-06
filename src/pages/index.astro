@@ -1,0 +1,25 @@
+---
+import Sidebar from "@/components/Sidebar.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getHomeContent, getPosts, getTags } from "@/lib/content";
+import { site } from "@/lib/site";
+
+const [posts, tags, home] = await Promise.all([getPosts(), getTags(), getHomeContent()]);
+
+---
+
+<BaseLayout title={site.title} description={site.description} image="/images/journey.jpg">
+  <Sidebar posts={posts} tags={tags} />
+  <main class="site-main">
+    <section class="home-screen">
+      <article class="home-cover" aria-label={home.title}>
+        <img src="/images/journey.jpg" alt="Journey through wind and sand" class="home-cover-image" />
+        <div class="home-cover-shade" aria-hidden="true"></div>
+        <div class="home-cover-copy">
+          <h1>{home.title}</h1>
+          <div class="home-introduction" set:html={home.html} />
+        </div>
+      </article>
+    </section>
+  </main>
+</BaseLayout>
