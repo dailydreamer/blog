@@ -22,11 +22,10 @@ const tagLabel = getTagLabel(tagName);
   <Sidebar posts={posts} tags={tags} activeTag={tagName} />
   <main class="site-main">
     <section class="mx-auto max-w-5xl px-5 py-10 lg:px-10 lg:py-14">
-      <p class="text-sm font-medium text-mint">Tag</p>
-      <h1 class="mt-2 text-4xl font-semibold text-ink">{tagLabel}</h1>
-      <p class="mt-3 text-muted">{filteredPosts.length} 篇文章</p>
+      <h1 data-filter-heading class="mt-2 text-4xl font-semibold text-ink">{tagLabel}</h1>
+      <p data-filter-count aria-live="polite" class="mt-3 text-muted">{filteredPosts.length} 篇文章</p>
       <div class="mt-8 grid gap-4 md:grid-cols-2">
-        {filteredPosts.map((post) => <PostCard post={post} />)}
+        {posts.map((post) => <PostCard post={post} hidden={!post.tags.includes(tagName)} />)}
       </div>
     </section>
   </main>

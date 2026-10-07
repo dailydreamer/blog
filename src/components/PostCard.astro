@@ -3,12 +3,13 @@ import { formatPostDate, getTagLabel, type Post } from "@/lib/content";
 
 type Props = {
   post: Post;
+  hidden?: boolean;
 };
 
-const { post } = Astro.props;
+const { post, hidden = false } = Astro.props;
 ---
 
-<article class="rounded-lg border border-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-mint/40 hover:shadow-md">
+<article data-post-tags={JSON.stringify(post.tags)} hidden={hidden} class="rounded-lg border border-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-mint/40 hover:shadow-md">
   <a href={`/posts/${post.slug}/`} class="group block">
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
       <time datetime={post.date.toISOString()}>{formatPostDate(post.calendarDate)}</time>

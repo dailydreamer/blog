@@ -452,3 +452,28 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 3px soli
 }
 .sidebar-toggle[aria-expanded="false"] svg { transform: rotate(180deg); }
 .content [id] { scroll-margin-top: 4rem; }
+
+[data-post-tags][hidden] { display: none !important; }
+
+/* Fit only the welcome cover to the current mobile viewport, including browser chrome. */
+@media (max-width: 1023px) {
+  body:has(.home-screen), .home-screen, .home-cover, .home-cover-copy {
+    min-height: 100svh;
+    min-height: 100dvh;
+  }
+  .home-cover-copy {
+    padding-top: max(5rem, calc(env(safe-area-inset-top) + 4rem));
+    padding-right: max(2rem, env(safe-area-inset-right));
+    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    padding-left: max(2rem, env(safe-area-inset-left));
+  }
+}
+@media (max-width: 1023px) and (max-height: 450px) {
+  .home-cover-copy {
+    gap: 1rem;
+    padding-top: max(4.5rem, calc(env(safe-area-inset-top) + 4rem));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .home-cover-copy h1 { font-size: clamp(1.75rem, min(6.4vw, 13dvh), 3.4rem); }
+  .home-cover-copy .home-introduction { font-size: clamp(.9rem, min(2.45vw, 6dvh), 1.3rem); }
+}

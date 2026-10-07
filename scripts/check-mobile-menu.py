@@ -35,7 +35,7 @@ for w,h in [(320,568),(568,320),(844,390),(390,844)]:
  check('close remains visible','document.querySelector("#mobile-directory-close").getBoundingClientRect().top>=0')
  run('screenshot',str(out/f'menu-{w}x{h}.png'))
 run('click','nav[aria-label="文章目录"] a:last-child');check('article click closes and navigates','location.pathname.includes("2015-06-04-a-pragmatic-programmer")&&!document.querySelector("dialog").open&&document.body.style.position!=="fixed"')
-open_menu();run('click','nav[aria-label="Tags"] a[href="/posts/"]');check('archive click closes and navigates','location.pathname==="/posts/"&&!document.querySelector("dialog").open')
+open_menu();run('click','.site-sidebar a.underline[href="/posts/"]');check('archive click closes and navigates','location.pathname==="/posts/"&&!document.querySelector("dialog").open')
 open_menu();run('set','viewport','1440','1000');settle();check('desktop restores sidebar and unlocks','document.querySelector("#site-sidebar").parentElement===document.body&&document.body.style.position!=="fixed"')
 run('click','#sidebar-toggle');check('desktop collapse works','document.body.classList.contains("sidebar-collapsed")');run('click','#sidebar-toggle')
 run('set','viewport','390','844');open_menu();run('click','#mobile-directory-close');settle();check('mobile works after desktop switch','!document.querySelector("dialog").open')

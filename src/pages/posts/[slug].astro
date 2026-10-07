@@ -30,7 +30,7 @@ const [posts, tags] = await Promise.all([getPosts(), getTags()]);
       <header class="border-b border-line pb-8">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-muted">
           <time datetime={post.date.toISOString()}>{formatPostDate(post.calendarDate, "long")}</time>
-          {post.tags.map((tag) => <a href={`/tags/${encodeURIComponent(tag)}/`} class="rounded-full bg-mint-soft px-2.5 py-1 text-ink">{getTagLabel(tag)}</a>)}
+          {post.tags.map((tag) => <a data-filter-tag={tag} href={`/tags/${encodeURIComponent(tag)}/`} class="rounded-full bg-mint-soft px-2.5 py-1 text-ink">{getTagLabel(tag)}</a>)}
         </div>
         <h1 class="mt-4 text-4xl font-semibold leading-tight text-ink md:text-5xl">{post.title}</h1>
         <p class="mt-5 text-sm text-muted">本文 {post.wordCount.toLocaleString("zh-CN")} 字，约 {post.readingMinutes} 分钟读完</p>
