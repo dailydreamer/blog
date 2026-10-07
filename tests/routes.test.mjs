@@ -22,7 +22,7 @@ test('all 24 original posts retain complete body, title, date, keywords and appr
 test('each complete rendered article and every tag membership is reachable from archive',()=>{
  const archive=read('posts/index.html');
  for(const p of posts){assert.ok(archive.includes(`/posts/${p.slug}/`));const html=read(`posts/${p.slug}/index.html`);assert.ok(norm(html).includes(norm(p.html)),p.slug);assert.ok(html.includes(`https://dailydreamer.me/posts/${p.slug}/`));}
- for(const t of tags){const html=read(`tags/${t.name}/index.html`);const main=html.slice(html.indexOf('<main'));for(const p of posts)assert.equal(main.includes(`/posts/${p.slug}/`),p.tags.includes(t.name),p.slug);}
+ for(const t of tags){const html=read(`tags/${t.name}/index.html`);const main=html.slice(html.indexOf('<main'));const cards=[...main.matchAll(/<article\b([^>]*)>([\s\S]*?)<\/article>/g)];assert.equal(cards.length,24);for(const p of posts){const card=cards.find(c=>c[2].includes(`/posts/${p.slug}/`));assert.ok(card,p.slug);assert.equal(!/\bhidden(?:\s|=|$)/.test(card[1]),p.tags.includes(t.name),p.slug);}}
 });
 test('home uses Hugo title and full level-three introduction; navigation includes archive',()=>{
  assert.equal(fs.readFileSync('content/_index.md','utf8'),git('content/_index.md'));
